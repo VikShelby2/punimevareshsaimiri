@@ -563,7 +563,9 @@ main .dark{ background:var(--dark)}
 .content main .bottom-data .reminders .task-list li:last-child{
    margin-bottom: 0;
 }
-
+.holyshit{
+ display: none
+}
 @media screen and (max-width: 768px) {
     .sidebar{
       display:none
@@ -573,6 +575,15 @@ main .dark{ background:var(--dark)}
         width: calc(100%) !important; left:  0 !important
         
     }
+    .content main .bottom-data .orders table tr td .status{
+       display:none
+    }
+    .shit{
+        display:none
+    }
+    .holyshit{
+        display: flex
+       }
 
 }
 

@@ -134,7 +134,7 @@ export default function Table({ currentOrders  , userData}) {
                         <tr>
                             <th>User</th>
                             <th>Order Date</th>
-                            <th>Status</th>
+                            <th className="shit">Status</th>
                             <th>Actions</th> {/* Add a new column for actions */}
                         </tr>
                     </thead>
@@ -146,7 +146,7 @@ export default function Table({ currentOrders  , userData}) {
                                     <p>{order.name}</p>
                                 </td>
                                 <td onClick={() => handleUpdate(order)}><button className="ovl-pr-btn">Edito</button></td>
-                                <td><span className="status completed">{order.status}</span></td>
+                                <td className="shit"><span className="status completed">{order.status}</span></td>
                                 <td>
                                  <AlertDialogExample ButtonClick={() => handleDelete(order.id)} />
                                 </td>

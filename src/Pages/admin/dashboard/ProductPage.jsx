@@ -1,4 +1,4 @@
-import React from "react";  import {useNavigate} from 'react-router-dom'
+import React, { useState } from "react";  import {useNavigate} from 'react-router-dom'
 import Sidebar from "../../../components/admin/Sidebar";
 import Navbar from "../../../components/admin/Navbar";
 import Header from "../../../components/admin/Header";
@@ -15,18 +15,30 @@ export default function  AdminProduct({userData , isLogged}){ const navigate = u
     }
   },[isLogged])
 console.log(userData[0])
+const [close , setClose] = useState(false)
+  const handleClose = () =>{
+ setClose(!close)
+}
+const [insights , setInsights] = useState([{
+  name: 'Shitjet Totale' , wins : '' ,
+   icon: <i className="bx bx-calendar-check" />
+ } ,
+ 
+ { name: 'Porosit totale' , wins: '' , icon: <i className="bx bx-dollar-circle" /> }
+ ])
+ 
 return(
 <>
-  <Sidebar/>
+  <Sidebar close={close} click={handleClose}/>
   <div className="content bg-[#fbfbfb] h-[100vh]" >
-  <Navbar/>
+  <Navbar  click={handleClose}/>
   <main>
   <Header/>
    <div className="w-full flex items-center justify-end mt-8">
    <ProductFormAdd userData={userData} />
   </div>
   
-  <ProductInsights/>
+  <ProductInsights insights={insights}/>
   <ProductTable userData={userData}/>
  
   </main>

@@ -1,15 +1,8 @@
 import React, { useState } from "react";
 import InsightsCard from "./card/card";
 
-export default function ProductInsights({props}){
+export default function ProductInsights({insights}){
 
-const [insights , setInsights] = useState([{
- name: 'Shitjet Totale' , wins : '' ,
-  icon: <i className="bx bx-calendar-check" />
-} ,
-
-{ name: 'Porosit totale' , wins: '' , icon: <i className="bx bx-dollar-circle" /> }
-])
 
 
 return(

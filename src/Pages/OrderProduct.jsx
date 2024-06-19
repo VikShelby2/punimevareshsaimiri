@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SocialButtons from "../ui/social-buttons";
-import { Link , useLocation } from "react-router-dom";
+import { Link , useLocation  , useNavigate} from "react-router-dom";
 import { db } from "../firebase/firebase";
 import { addDoc, collection, doc, getDoc } from "firebase/firestore";
 import { useToast , Button } from '@chakra-ui/react'
@@ -12,12 +12,19 @@ export default function OrderPage(){
     const [droped, setDroped] = useState(false);
     const location = useLocation();
     const [productid, setProductID] = useState('');
+    const [phoneNumber , setPhoneNumber] = useState('')
     const [product, setProduct] = useState(null);
     const [number, setNumber] = useState(1);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState('');
     const [message, setMessage] = useState('');
     const toast = useToast()
+    const validateEmail = (email) => {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(String(email).toLowerCase());
+    };
+    const navigate = useNavigate()
   const handleDecrement = () => {
     setNumber((prevNumber) => (prevNumber > 0 ? prevNumber - 1 : 0));
   };
@@ -66,12 +73,16 @@ export default function OrderPage(){
       }, [productid]);
       const handleSubmit = async () => {
     
-    
+        if (!validateEmail(email)) {
+          setEmailError('Invalid email address');
+          return;
+        }
         try {
           await addDoc(collection(db, 'orders'), {
             name,
             email,
             message,
+            phoneNumber ,
             product: product?.name,
             productID: productid,
             quantity: number
@@ -83,6 +94,7 @@ export default function OrderPage(){
             duration: 4000,
             isClosable: true,
           })
+          navigate('/products')
         } catch (error) {
           console.error('Error placing order:', error);
           alert('Failed to place order. Please try again.');
@@ -214,12 +226,21 @@ return(
             <form className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
             
                 <div className="sm:col-span-2">
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-slate-400">Name</label>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-slate-400">Emri</label>
                     <div className="mt-1">
                         <input 
                          value={name}
                     onChange={(e) => setName(e.target.value)}
                         name="name" type="text" id="name" autoComplete="organization" required className="border border-gray-300 block w-full rounded-md py-3 px-4 shadow-sm focus:border-sky-500 focus:ring-sky-500 dark:border-white/5 dark:bg-slate-700/50 dark:text-white" />
+                    </div>
+                </div>
+                <div className="sm:col-span-2">
+                    <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 dark:text-slate-400">Numri Tel.</label>
+                    <div className="mt-1">
+                        <input 
+                         value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                        name="phoneNumber" type="number" id="phoneNumber" autoComplete="organization" required className="border border-gray-300 block w-full rounded-md py-3 px-4 shadow-sm focus:border-sky-500 focus:ring-sky-500 dark:border-white/5 dark:bg-slate-700/50 dark:text-white" />
                     </div>
                 </div>
                 <div className="sm:col-span-2">
@@ -231,9 +252,10 @@ return(
                     onChange={(e) => setEmail(e.target.value)}
                         name="email" id="email" required type="email" autoComplete="email" className="border border-gray-300 block w-full rounded-md py-3 px-4 shadow-sm focus:border-sky-500 focus:ring-sky-500 dark:border-white/5 dark:bg-slate-700/50 dark:text-white" />
                     </div>
+                    {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
                 </div>
                 <div className="sm:col-span-2">
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-slate-400">Message</label>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-slate-400">Mesazh</label>
                     <div className="mt-1">
                         <textarea
                          value={message}

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import testimg from '../../../../assets/private/profile-1.jpg'
+import { useBreakpointValue } from "@chakra-ui/react";
+
 export default function Table({props}) {
+const isMobile = useBreakpointValue({ base: true, sm: false });
     const [orders , setOrders] = useState([
         { name:'John Dow' , img: testimg , date:'14-08-2023' , status: 'E shitur'} ,
         { name:'John Dow' , img: testimg , date:'14-08-2023' , status: 'Ne pritje'} ,

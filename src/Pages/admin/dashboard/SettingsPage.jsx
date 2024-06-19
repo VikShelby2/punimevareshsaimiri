@@ -1,4 +1,4 @@
-import React from "react"; import {useNavigate} from 'react-router-dom'
+import React, { useState } from "react"; import {useNavigate} from 'react-router-dom'
 import Sidebar from "../../../components/admin/Sidebar";
 import Navbar from "../../../components/admin/Navbar";
 import Header from "../../../components/admin/Header";
@@ -11,12 +11,15 @@ export default function  AdminSettings({isLogged}){   const navigate = useNaviga
       navigate('/signin')
     }
   },[isLogged])
-  
+  const [close , setClose] = useState(false)
+  const handleClose = () =>{
+ setClose(!close)
+}
 return(
 <>
-  <Sidebar/>
+  <Sidebar close={close} click={handleClose}/>
   <div className="content bg-[#fbfbfb] h-[100vh]" >
-  <Navbar/>
+  <Navbar  click={handleClose}/>
   <main>
   <Header/>
   </main>

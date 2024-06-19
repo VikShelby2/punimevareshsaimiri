@@ -25,6 +25,7 @@ import Example from "./components/Public/Grid/preview";
 import ProductOverview from "./Pages/ProductOverview";
 import ContactPage from "./Pages/ContactPage";
 import OrderPage from "./Pages/OrderProduct";
+import OrderAdmin from "./Pages/admin/dashboard/OrderPage";
 
 
 
@@ -110,6 +111,9 @@ console.log(userData[0])
          
           <Route path="/dash/settings" element={ isLogged ?   <>
           <AdminSettings userData={userData} isLogged={isLogged}/></> : null}/>
+              
+          <Route path="/dash/order" element={ isLogged ?   <>
+          <OrderAdmin userData={userData} isLogged={isLogged}/></> : null}/>
             <Route
               path="/signIn"
               element={
